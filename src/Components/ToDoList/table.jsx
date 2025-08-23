@@ -4,7 +4,8 @@ const TodoTable = ({ data }) => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedTasks, setSelectedTasks] = useState([]);
-    const dataList = [
+ 
+     const [dataList, setDataList] = useState([
         { task: "Task 1", priority: "High", assignedUser: "User A" },
         { task: "Task 2", priority: "Medium", assignedUser: "User B" },
         { task: "Task 3", priority: "Low", assignedUser: "User C" },
@@ -17,7 +18,7 @@ const TodoTable = ({ data }) => {
         { task: "Task 10", priority: "High", assignedUser: "User J" },
         { task: "Task 11", priority: "Medium", assignedUser: "User K" },
         { task: "Task 12", priority: "Low", assignedUser: "User L" },
-    ];
+    ]);
     const totalPages = Math.ceil(dataList?.length / rowsPerPage);
 
     const handleRowsPerPageChange = (event) => {
@@ -46,11 +47,10 @@ const TodoTable = ({ data }) => {
         });
     };
     const handleDeleteSelected = () => {
-        // Filter out the selected tasks from the data list
-        const updatedDataList = dataList.filter((item) => !selectedTasks.includes(item.id));
+        // Remove selected tasks from the data list
+        const updatedDataList = dataList.filter((item) => !selectedTasks.includes(item.task));
+        setDataList(updatedDataList);
         setSelectedTasks([]);
-        // Update the data list with the filtered list
-        // Here you may want to update your state or perform any necessary action to reflect the changes in your application
         console.log("Deleted Tasks:", selectedTasks);
         console.log("Updated Data List:", updatedDataList);
     };
@@ -67,7 +67,7 @@ const TodoTable = ({ data }) => {
                     <option value={30}>30</option>
                 </select>
             </div>
-            <div className="max-h-[580px] overflow-y-auto">
+            <div className="overflow-y-auto">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 ">
                     <thead className="bg-gray-100 dark:bg-gray-900  sticky overflow-hidden">
                         <tr>
@@ -119,7 +119,7 @@ const TodoTable = ({ data }) => {
                                 <td className="px-6 py-4 text-left whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {item.assignedUser}
                                 </td>
-                                <td className="cursor-pointer ">
+                                <td onClick={()=>handleDeleteSelected(index)} className="cursor-pointer ">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
