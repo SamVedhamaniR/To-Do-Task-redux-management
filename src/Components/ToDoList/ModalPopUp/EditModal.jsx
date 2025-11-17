@@ -4,20 +4,20 @@ import { motion } from "framer-motion";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Default calendar styling
 
-const Popper = ({ onCreate, onCancel }) => {
-    const [task, setTask] = useState("");
-    const [assignedUser, setAssignedUser] = useState("");
-    const [priority, setPriority] = useState("Medium");
-    const [dueDate, setDueDate] = useState(null); // New state for due date
+const EditModal = ({ task, onSave, onCancel }) => {
+    const [taskName, setTaskName] = useState(task.task);
+    const [priority, setPriority] = useState(task.priority);
+    const [assignedUser, setAssignedUser] = useState(task.assignedUser);
+    const [dueDate, setDueDate] = useState(task.dueDate ? new Date(task.dueDate) : null); // New state for due date
 
-    const handleCreate = () => {
-        if (task.trim()) {
-            onCreate({ task, assignedUser, priority, dueDate: dueDate ? dueDate.toISOString() : null });
-            setTask("");
-            setAssignedUser("");
-            setPriority("Medium");
-            setDueDate(null);
-        }
+    const handleSave = () => {
+        onSave({
+            ...task,
+            task: taskName,
+            priority,
+            assignedUser,
+            dueDate: dueDate ? dueDate.toISOString() : null,
+        });
     };
 
     return (
@@ -39,13 +39,13 @@ const Popper = ({ onCreate, onCancel }) => {
                 >
                     <XMarkIcon className="w-6 h-6" />
                 </button>
-                <h2 className="text-2xl font-bold mb-4 text-primary dark:text-secondary">Create Task</h2>
+                <h2 className="text-2xl font-bold mb-4 text-primary dark:text-secondary">Edit Task</h2>
                 <input
                     type="text"
                     className="w-full p-2 mb-4 border border-neutral-300 dark:border-neutral-700 rounded text-primary dark:text-secondary bg-neutral-100 dark:bg-neutral-900 focus:outline-none"
-                    placeholder="New Task"
-                    value={task}
-                    onChange={(e) => setTask(e.target.value)}
+                    placeholder="Task Name"
+                    value={taskName}
+                    onChange={(e) => setTaskName(e.target.value)}
                 />
                 <input
                     type="text"
@@ -75,8 +75,8 @@ const Popper = ({ onCreate, onCancel }) => {
                     <button className="bg-neutral-500 text-secondary px-4 py-2 rounded hover:bg-neutral-600 transition" onClick={onCancel}>
                         Cancel
                     </button>
-                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-blue-600 transition" onClick={handleCreate}>
-                        Create Task
+                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-blue-600 transition" onClick={handleSave}>
+                        Save
                     </button>
                 </div>
             </motion.div>
@@ -84,4 +84,4 @@ const Popper = ({ onCreate, onCancel }) => {
     );
 };
 
-export default Popper;
+export default EditModal;
