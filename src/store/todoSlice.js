@@ -36,8 +36,11 @@ const todoSlice = createSlice({
         existingTodo.status = status;
       }
     },
+    reorderTodos: (state, action) => {
+      state.todos = action.payload;
+    },
   },
 });
 
-export const { addTodo, deleteTodo, editTodo, updateTaskStatus } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo, updateTaskStatus, reorderTodos } = todoSlice.actions;
 export default todoSlice.reducer;

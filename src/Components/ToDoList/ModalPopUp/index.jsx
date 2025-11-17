@@ -75,7 +75,7 @@ const Popper = ({ onCreate, onCancel }) => {
                     <button className="bg-neutral-500 text-secondary px-4 py-2 rounded hover:bg-neutral-600 transition" onClick={onCancel}>
                         Cancel
                     </button>
-                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-blue-600 transition" onClick={handleCreate}>
+                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-neutral-500 transition" onClick={handleCreate}>
                         Create Task
                     </button>
                 </div>

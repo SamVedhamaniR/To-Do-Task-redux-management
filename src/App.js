@@ -127,13 +127,13 @@ function App() {
             </main>
             <motion.button
                 whileTap={{ scale: 0.9 }}
-                className="fixed bottom-4 left-4 bg-accent text-secondary p-3 rounded-full shadow-lg hover:bg-blue-600 transition z-50"
+                className="fixed bottom-4 left-4 bg-accent text-secondary p-3 rounded-full shadow-lg hover:bg-neutral-500 transition z-50"
                 onClick={handleAdd}
             >
                 <PlusIcon className="w-8 h-8" />
             </motion.button>
             <button
-                className="fixed bottom-4 right-4 bg-accent text-secondary p-3 rounded-full shadow-lg hover:bg-blue-600 transition z-50"
+                className="fixed bottom-4 right-4 bg-accent text-secondary p-3 rounded-full shadow-lg hover:bg-neutral-500 transition z-50"
                 onClick={() => setShowHelp(true)}
             >
                 <QuestionMarkCircleIcon className="w-8 h-8" />

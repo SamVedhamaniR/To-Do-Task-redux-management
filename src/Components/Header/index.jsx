@@ -62,7 +62,7 @@ const Header = ({
                             className="bg-neutral-200 dark:bg-neutral-700 text-primary dark:text-secondary p-2 rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-600 transition"
                             onClick={toggleDarkMode}
                         >
-                            {darkMode ? <SunIcon className="w-6 h-6 text-yellow-300" /> : <MoonIcon className="w-6 h-6 text-blue-300" />}
+                            {darkMode ? <SunIcon className="w-6 h-6" /> : <MoonIcon className="w-6 h-6" />}
                         </motion.button>
                     </div>
                 </div>

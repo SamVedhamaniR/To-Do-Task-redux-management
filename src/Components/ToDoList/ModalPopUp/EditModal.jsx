@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Default calendar styling
+import { useDispatch } from "react-redux";
+import { deleteTodo } from "../../../store/todoSlice";
 
 const EditModal = ({ task, onSave, onCancel }) => {
     const [taskName, setTaskName] = useState(task.task);
     const [priority, setPriority] = useState(task.priority);
     const [assignedUser, setAssignedUser] = useState(task.assignedUser);
     const [dueDate, setDueDate] = useState(task.dueDate ? new Date(task.dueDate) : null); // New state for due date
+    const dispatch = useDispatch();
 
     const handleSave = () => {
         onSave({
@@ -18,6 +21,11 @@ const EditModal = ({ task, onSave, onCancel }) => {
             assignedUser,
             dueDate: dueDate ? dueDate.toISOString() : null,
         });
+    };
+
+    const handleDelete = () => {
+        dispatch(deleteTodo(task.id));
+        onCancel(); // Close the modal after deleting
     };
 
     return (
@@ -72,10 +80,13 @@ const EditModal = ({ task, onSave, onCancel }) => {
                     />
                 </div>
                 <div className="flex justify-end space-x-2">
+                    <button className="bg-red-500 text-secondary px-4 py-2 rounded hover:bg-red-600 transition" onClick={handleDelete}>
+                        <TrashIcon className="w-5 h-5 inline-block mr-1" /> Delete
+                    </button>
                     <button className="bg-neutral-500 text-secondary px-4 py-2 rounded hover:bg-neutral-600 transition" onClick={onCancel}>
                         Cancel
                     </button>
-                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-blue-600 transition" onClick={handleSave}>
+                    <button className="bg-accent text-secondary px-4 py-2 rounded hover:bg-neutral-500 transition" onClick={handleSave}>
                         Save
                     </button>
                 </div>
